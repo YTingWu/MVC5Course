@@ -36,6 +36,15 @@ namespace MVC5Course.Controllers
         {
             var product = db.Product.Find(id);
 
+            //錯誤示範
+            /*foreach (var item in product.OrderLine.ToList())
+            {
+                db.OrderLine.Remove(item);
+                db.SaveChanges();
+            }
+            */
+
+            db.OrderLine.RemoveRange(product.OrderLine);
             db.Product.Remove(product);
             db.SaveChanges();
 
