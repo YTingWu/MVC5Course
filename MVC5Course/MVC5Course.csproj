@@ -215,6 +215,7 @@
     <Compile Include="Models\Product.cs">
       <DependentUpon>Fabrics.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\RengeAttribute.cs" />
     <Compile Include="Models\requiredAttribute.cs" />
     <Compile Include="Models\ViewModels\ClientLoginViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
