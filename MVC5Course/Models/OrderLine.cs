@@ -8,7 +8,7 @@
 //------------------------------------------------------------------------------
 
 namespace MVC5Course.Models
-{
+{ 
     using System;
     using System.Collections.Generic;
     
