@@ -10,15 +10,17 @@ using MVC5Course.Models;
 
 namespace MVC5Course.Controllers
 {
-    public class ProductsController : Controller
+    public class ProductsController : BaseController
     {
         //private FabricsEntities db = new FabricsEntities();
         ProductRepository repo = RepositoryHelper.GetProductRepository();
+        //[Route("products/list")]
 
         // GET: Products
         public ActionResult Index()
         {
-            var data = repo.All().OrderByDescending(p => p.ProductId).Take(10).ToList();
+            //var data = repo.All().OrderByDescending(p => p.ProductId).Take(10).ToList();
+            var data = repo.Get所有資料_依據ProductID排序(10).ToList();
             return View(data);
         }
 
@@ -113,7 +115,8 @@ namespace MVC5Course.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Product product = repo.Find(id);
-            product.IsDeleted = true;
+            repo.Delete(product);
+            //product.IsDeleted = true;
             //db.Product.Remove(product);
             repo.UnitOfWork.Commit();
             return RedirectToAction("Index");
