@@ -13,16 +13,18 @@ namespace MVC5Course.Controllers
 {
     public class ClientsController : BaseController
     {
-
         // GET: Clients
         public ActionResult Index(string search)
         {
             var client = db.Client.Include(c => c.Occupation);
+
             if (!string.IsNullOrEmpty(search))
             {
                 client = client.Where(p => p.FirstName.Contains(search));
             }
+
             client = client.OrderByDescending(p => p.ClientId).Take(10);
+
             return View(client);
         }
 
@@ -42,11 +44,16 @@ namespace MVC5Course.Controllers
         }
 
         // GET: Clients/Create
+        [ChildActionOnly]
         public ActionResult Create()
         {
             ViewBag.OccupationId = new SelectList(db.Occupation, "OccupationId", "OccupationName");
+
             var client = new Client()
-             {Gender = "M"};
+            {
+                Gender = "M"
+            };
+
             return View(client);
         }
 
@@ -89,14 +96,16 @@ namespace MVC5Course.Controllers
         // 詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ClientId,FirstName,MiddleName,LastName,Gender,DateOfBirth,CreditRating,XCode,OccupationId,TelephoneNumber,Street1,Street2,City,ZipCode,Longitude,Latitude,Notes")] Client client)
+        public ActionResult Edit(int id, FormCollection form)
         {
-            if (ModelState.IsValid)
+            var client = db.Client.Find(id);
+            if (TryUpdateModel(client, null, null, new string[] { "IsAdmin" }))
             {
-                db.Entry(client).State = EntityState.Modified;
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
+
             ViewBag.OccupationId = new SelectList(db.Occupation, "OccupationId", "OccupationName", client.OccupationId);
             return View(client);
         }
@@ -127,6 +136,17 @@ namespace MVC5Course.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Login(ClientLoginViewModel client)
+        {
+            return View("LoginResult", client);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -134,15 +154,6 @@ namespace MVC5Course.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-        public ActionResult Login()
-        {
-            return View();
-        }
-        [HttpPost]
-        public ActionResult Login(ClientLoginViewModel client)
-        {
-            return View("LoginResult",client);
         }
     }
 }
