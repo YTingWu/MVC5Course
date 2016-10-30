@@ -178,10 +178,12 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\EFController.cs" />
+    <Compile Include="Controllers\FormController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="ActionFilters\LocalDebugOnlyAttributes.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MBController.cs" />
+    <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="ActionFilters\ShareDataAttribute.cs" />
     <Compile Include="Controllers\VTController.cs" />
@@ -409,8 +411,6 @@
     <Content Include="Views\Clients\Details.cshtml" />
     <Content Include="Views\Clients\Edit.cshtml" />
     <Content Include="Views\Clients\Index.cshtml" />
-    <Content Include="Views\Clients\Login.cshtml" />
-    <Content Include="Views\Clients\LoginResult.cshtml" />
     <Content Include="Views\EF\Index.cshtml" />
     <Content Include="Views\EF\Details.cshtml" />
     <Content Include="Views\EF\ClientContribution.cshtml" />
@@ -436,6 +436,12 @@
     <Content Include="Views\VT\NewIndex.cshtml" />
     <Content Include="Views\Shared\_LayoutBootstrap.cshtml" />
     <Content Include="Views\VT\_ViewStart.cshtml" />
+    <Content Include="Views\Orders\Create.cshtml" />
+    <Content Include="Views\Orders\Delete.cshtml" />
+    <Content Include="Views\Orders\Details.cshtml" />
+    <Content Include="Views\Orders\Edit.cshtml" />
+    <Content Include="Views\Orders\Index.cshtml" />
+    <Content Include="Views\Form\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
