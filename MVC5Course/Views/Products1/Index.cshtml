@@ -2,10 +2,6 @@
 
 @{
     ViewBag.Title = "Index";
-    if (IsAjax)
-    {
-        Layout = "";
-    }
 }
 
 <h2>Index</h2>
@@ -14,7 +10,7 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 
-@Html.PagedListPager(Model as IPagedList, (p) => Url.Action("Index", new { pageNo = p }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing("main"))
+@Html.PagedListPager(Model as IPagedList, p => Url.Action("Index", new { pageNo = p }))
 
 <table class="table">
     <tr>
@@ -29,6 +25,9 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Stock)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsDeleted)
         </th>
         <th></th>
     </tr>
@@ -49,8 +48,11 @@
                 @Html.DisplayFor(modelItem => item.Stock)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.IsDeleted)
+            </td>
+            <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.ProductId }) |
-                @Ajax.ActionLink("Details", "Details", new { id = item.ProductId }, new AjaxOptions() { UpdateTargetId = "details" }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ProductId }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.ProductId })
             </td>
         </tr>
@@ -61,20 +63,4 @@
 @using PagedList
 @using PagedList.Mvc
 
-@Html.PagedListPager(Model as IPagedList, (p) => Url.Action("Index", new { pageNo = p }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing("main"))
-
-<div id="details"></div>
-
-
-@section Scripts {
-    @{
-        ViewBag.Msg = @"123';
-alert('XSS');//123";
-
-    }
-    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-    <script>
-        var str = '@Ajax.JavaScriptStringEncode(ViewBag.Msg)';
-        alert(str);
-    </script>
-}
+@Html.PagedListPager(Model as IPagedList, p => Url.Action("Index", new { pageNo = p }))
